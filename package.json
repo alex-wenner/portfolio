@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "sst": "3.9.28",
-    "typescript": "~6.0.2",
+    "typescript": "5.9.3",
     "vite": "^8.2.2"
   }
 }
