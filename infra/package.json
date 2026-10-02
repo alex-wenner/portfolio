@@ -1,0 +1,16 @@
+{
+  "name": "portfolio-infra",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "sst dev --stage nonprod",
+    "deploy:nonprod": "sst deploy --stage nonprod",
+    "deploy:prod": "sst deploy --stage prod",
+    "remove": "sst remove --stage nonprod"
+  },
+  "devDependencies": {
+    "sst": "^3",
+    "typescript": "^5.6.2",
+    "@types/node": "^22"
+  }
+}

@@ -1,0 +1,32 @@
+name: Deploy
+# Manual only until the AWS OIDC deploy role and AWS_DEPLOY_ROLE_ARN secret exist.
+# Then add back: push: { branches: [main] }
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        type: choice
+        options: [nonprod, prod]
+        default: nonprod
+permissions:
+  id-token: write
+  contents: read
+env:
+  STAGE: ${{ github.event_name == 'workflow_dispatch' && inputs.stage || 'nonprod' }}
+concurrency:
+  group: deploy-${{ github.event_name == 'workflow_dispatch' && inputs.stage || 'nonprod' }}
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22.x, cache: npm }
+      - run: npm ci
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          # GAP: OIDC deploy role not created yet.
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+      - run: cd infra && (npx sst unlock --stage "$STAGE" || true) && npx sst deploy --stage "$STAGE"

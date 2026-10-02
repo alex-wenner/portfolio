@@ -1,0 +1,18 @@
+{
+  "name": "alex-wenner-portfolio",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "web",
+    "infra"
+  ],
+  "scripts": {
+    "dev": "npm --workspace web run dev",
+    "build": "npm --workspace web run build",
+    "test": "npm --workspace web run test",
+    "typecheck": "npm --workspace web run typecheck",
+    "deploy:nonprod": "npm --workspace infra run deploy:nonprod",
+    "deploy:prod": "npm --workspace infra run deploy:prod",
+    "sync:content": "node scripts/sync-content.mjs"
+  }
+}

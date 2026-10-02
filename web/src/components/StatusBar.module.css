@@ -1,0 +1,5 @@
+.status { position: sticky; bottom: 0; display: flex; justify-content: space-between; align-items: center; gap: var(--sp-4); background: var(--color-accent); color: var(--color-on-accent); font-size: var(--fs-small); padding: var(--sp-1) 14px; font-weight: 500; white-space: nowrap; }
+.status ul { list-style: none; display: flex; gap: var(--sp-4); margin: 0; padding: 0; overflow-x: auto; scrollbar-width: none; }
+.status a { text-decoration: none; padding: 0 var(--sp-1); }
+.status a:hover, .status a:focus-visible { background: var(--color-on-accent); color: var(--color-accent); outline: none; }
+@media (max-width: 640px) { .meta { display: none; } .status ul { gap: var(--sp-3); } }

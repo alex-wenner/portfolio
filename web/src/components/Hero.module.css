@@ -1,0 +1,7 @@
+.hero { margin: 0 0 54px; }
+.title { font-family: var(--font-type); font-weight: 400; font-size: var(--fs-hero); line-height: 1.08; letter-spacing: -.5px; margin: 14px 0 18px; min-height: 1.08em; }
+.role { color: var(--color-dim); margin: 0; }
+.studio { all: unset; cursor: pointer; color: var(--color-dim); }
+.studio:hover .studioName, .studio:focus-visible .studioName { text-decoration: underline; text-decoration-color: var(--color-accent); text-underline-offset: 4px; }
+.studio:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.studioName { color: var(--color-accent); }

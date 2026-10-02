@@ -1,0 +1,5 @@
+.hint { color: var(--color-dim); margin: -36px 0 40px; font-size: 13px; }
+.stack { margin: 10px 0 0; }
+.stack i { color: var(--color-dim); font-style: normal; }
+.touch { display: none; }
+@media (hover: none) { .keys { display: none; } .touch { display: inline; } }

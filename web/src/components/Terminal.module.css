@@ -1,0 +1,14 @@
+.win { max-width: var(--maxw); margin: 28px auto; background: var(--color-bg); border: 1px solid var(--color-line); border-radius: 10px; overflow: clip;
+  background-image: repeating-linear-gradient(0deg, #ffffff04 0 1px, transparent 1px 3px); }
+.bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--color-line); background: var(--color-panel); color: var(--color-dim); font-size: 13px; }
+.dot { width: 11px; height: 11px; border-radius: 50%; background: #333; }
+.title { margin: 0 auto; }
+.body { padding: 34px 48px 20px; }
+.prompt { color: var(--color-dim); font: inherit; margin: 0; }
+.prompt b { color: var(--color-accent); font-weight: 500; }
+.cmd { color: var(--color-fg); }
+.block { margin: 0 0 54px; scroll-margin-top: 24px; }
+.cursor { display: inline-block; width: .55em; height: .95em; background: var(--color-accent); vertical-align: -0.08em; animation: blink var(--cursor-blink); }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cursor { animation: none; } }
+@media (max-width: 640px) { .body { padding: 22px 18px; } .win { margin: 0; border-radius: 0; border-left: 0; border-right: 0; } }
