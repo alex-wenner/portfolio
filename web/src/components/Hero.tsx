@@ -47,7 +47,7 @@ export function Hero() {
             hidden={!open}
             onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); close(); } }}
           >
-            {open && <ProjectReadme project={studio} />}
+            {open && <ProjectReadme headingLevel={2} project={studio} />}
           </div>
         </>
       )}

@@ -13,14 +13,15 @@ export const projects: Project[] = [
     visibility: "private",
     images: [],
     caseStudy: {
-      problem: "Going out means guessing which venue is worth it. Venues have no simple way to share live crowd and wait times.",
-      built: [
-        "Consumer app to browse and filter venues, see live counts and waits, open Uber or Lyft, and buy skip-the-line QR passes",
-        "Admin app for venue owners with staff roles (super admin, bar admin, bar staff), live-ops controls, and impersonation",
-        "Realtime updates pushed to both apps over WebSockets when a venue changes",
-        "Apple Sign-In verified against Apple's public keys, then exchanged for Cognito tokens",
+      problem: "People pick where to go out by guessing, and venues have no direct way to show how busy they are, push a deal on a slow night, or make money from the line.",
+      useCase: "Someone checks live crowd and wait times, picks a spot, grabs an Uber or Lyft, and buys a skip-the-line pass. Venue staff update counts and waits from their own app and post deals that go out as push notifications.",
+      approach: [
+        "Two apps on one backend: a consumer app for going out and an admin app for venue owners and staff",
+        "Live counts and waits pushed to every open app over WebSockets the moment staff change them",
+        "Paid skip-the-line QR passes and venue deals as the revenue side",
+        "Staff roles (super admin, bar admin, bar staff) so each venue controls who can change what",
       ],
-      architecture: "Two Expo apps share one SST v3 backend: HTTP and WebSocket APIs on API Gateway, Node 20 Lambdas, a single-table DynamoDB design, and Cognito with a JWT authorizer. Deploys run from GitHub Actions with keyless AWS sign-in (OIDC).",
+      status: { state: "active", note: "In active development with installable builds through TestFlight." },
     },
   },
   {
@@ -34,13 +35,15 @@ export const projects: Project[] = [
     visibility: "private",
     images: [],
     caseStudy: {
-      problem: "Meal plans, recipes, and workouts generated for the person using the app, not pulled from a template.",
-      built: [
-        "Generated meal plans, recipes, and workouts, plus a health chat",
+      problem: "Personalized meal and training plans usually mean paying a coach, and most fitness apps hand out the same templates to everyone, mostly in English only.",
+      useCase: "A user tells the app their goals, gets meal plans, recipes, and workouts built for them, asks follow-up questions in a health chat, and snaps a photo to check what's in their food, in English or Spanish.",
+      approach: [
+        "Generated meal plans, recipes, workouts, and a health chat, each with its own prompt",
+        "One model layer over Bedrock, OpenAI, and Google, so providers can be swapped on cost or quality",
         "Ingredient analysis from photos",
-        "Spanish localization, Apple sign-in, and in-app purchases",
+        "Spanish localization, Apple sign-in, and in-app purchases for a paid tier",
       ],
-      architecture: "Expo app on an SST backend. A Python Lambda in a Docker image wraps Bedrock, OpenAI, and Google behind one model abstraction, with separate prompt modules for meals, recipes, workouts, chat, and validation.",
+      status: { state: "archived", note: "Built through a pre-release in early 2024 under Wenntech." },
     },
   },
   {
@@ -55,19 +58,21 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/alex-wenner/prompt-lens",
     images: [],
     caseStudy: {
-      problem: "There's 100x more LLM usage with 100x less visibility into why a model does what it does. This was my attempt at helping out.",
-      built: [
+      problem: "Teams ship LLM features with no idea which part of a prompt is actually driving the output. There's 100x more usage with 100x less visibility, so debugging a bad answer or a wrong tool call is guesswork, and so is the bill.",
+      useCase: "An engineer whose agent keeps picking the wrong tool runs promptlens to see which instruction or tool description is steering it, after checking what the experiment will cost before making any calls.",
+      approach: [
         "Splits a prompt, tool schema, or instruction stack into features and masks them one at a time",
         "Reruns the model, scores how much the output changed, and ranks what mattered",
-        "Projects the cost of an experiment before any provider calls are made",
+        "Projects the cost of an experiment up front",
+        "Thin adapters for Anthropic, OpenAI, Copilot, Grok, Gemini, Bedrock, and local models through Ollama",
       ],
-      architecture: "Thin, optional provider adapters (Anthropic, OpenAI, GitHub Copilot, Grok, Gemini, Bedrock, Ollama, and any OpenAI-compatible endpoint) behind one interface, driven from a CLI.",
+      status: { state: "active", note: "Public on GitHub, used through a CLI, and the most-starred of these repos." },
     },
   },
   {
     slug: "proofprint",
     title: "ProofPrint",
-    tagline: "Signed, checkable lineage for datasets, training runs, and evals.",
+    tagline: "Infrastructure for AI labs to regulate themselves, with proof instead of PDFs.",
     tier: "tooling",
     stack: ["Rust", "Ed25519", "Merkle log", "React", "TypeScript", "Python", "Hugging Face"],
     role: "Creator",
@@ -76,13 +81,15 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/alex-wenner/proofprint",
     images: [],
     caseStudy: {
-      problem: "A signature shows who made a claim, not that it's true. ProofPrint keeps the claims and the checks on them in a log anyone can verify.",
-      built: [
-        "Signed records for datasets, run configs, checkpoints, scores, and third-party checks, each linking what it was built from",
-        "Append-only Merkle log with recovery from interrupted writes",
-        "CLI, local HTTP node, React explorer with a lineage graph, and a Python client with a Hugging Face Trainer callback",
+      problem: "AI labs are being asked to regulate themselves, and right now that means a \"responsible scaling\" PDF and a request to be trusted. There's no way for anyone outside to check what a lab actually trained or whether its evals hold up.",
+      useCase: "A lab publishes a signed record of each training run and eval while keeping its weights and data private. A rival lab or auditor re-runs the eval and signs what they found. The hash chain does the talking, so self-regulation is checkable without a regulator stepping in.",
+      approach: [
+        "Every dataset, run, checkpoint, and eval becomes a signed record that links to what it was built from",
+        "Files are referenced by hash, so config, losses, eval results, and the hashes that pin them can be published while weights and data stay proprietary",
+        "Records go into an append-only log with proofs, so history can't be quietly rewritten",
+        "Drops into existing training with four Python calls or a Hugging Face Trainer callback",
       ],
-      architecture: "Rust core, CLI, and node; files referenced by content hash; React explorer; Python recorder. Includes a nanoGPT training example.",
+      status: { state: "early", note: "Works end to end on one machine with a CLI, local node, and explorer. Next is a real fine-tune, third-party eval re-runs, and independently witnessed logs." },
     },
   },
   {
@@ -97,13 +104,14 @@ export const projects: Project[] = [
     repoUrl: "https://github.com/alex-wenner/rennew",
     images: [],
     caseStudy: {
-      problem: "Treat sessions as the unit of work, so they can hand off, check each other, and share tasks, code, and memory.",
-      built: [
-        "Sessions that hand work to each other, validate each other, and share tasks, code, and memory",
-        "The whole execution model stored as a queryable local graph",
-        "Read-only Cypher queries from the CLI and web UI",
+      problem: "Coding agents work in isolated sessions. Once several are working the same codebase, handoffs, reviews, and shared context get lost, and there's no record of who did what.",
+      useCase: "A developer runs several agent sessions, hands a task from one to another, has a second session validate the work, and queries the history to see exactly what happened.",
+      approach: [
+        "Sessions are the unit of work and can hand off to, validate, and overlap with each other",
+        "Tasks, code, memory, and artifacts are stored as one local graph that can be queried",
+        "Runs locally with a FastAPI server, a React UI, and a CLI",
       ],
-      architecture: "Python runtime with a local FastAPI server, a session-centric graph database, and a bundled React UI. Early architecture phase.",
+      status: { state: "early", note: "Initial architecture. The graph, server, UI, and first handoff primitives are in place." },
     },
   },
   {
@@ -117,13 +125,14 @@ export const projects: Project[] = [
     visibility: "private",
     images: [],
     caseStudy: {
-      problem: "The studio needed a site that shows its work, books clients, and that the owner can update without a developer.",
-      built: [
-        "Before/after mix comparison player that switches between three projects without gaps",
-        "Native consultation booking in place of a Google Calendar embed",
-        "Admin mode that is the real site, with inline editing on every page",
+      problem: "A creative studio needs to show its work, book clients, and keep the site current without paying a developer for every change.",
+      useCase: "A prospective client compares before and after mixes, then books a consultation on the site. The owner signs in and edits any page in place.",
+      approach: [
+        "A before/after mix player that switches between three projects without gaps",
+        "Native consultation booking in place of a calendar embed",
+        "An admin mode that is the real site, with inline editing on every page",
       ],
-      architecture: "React and Vite frontend deployed with SST, with Cognito handling admin sign-in.",
+      status: { state: "active", note: "In development. Content is still being approved before launch." },
     },
   },
   {
@@ -138,13 +147,14 @@ export const projects: Project[] = [
     images: [],
     liveUrl: "https://riseupprisonministry.com",
     caseStudy: {
-      problem: "A prison ministry needed a home online to share its team, its story, and testimonies, and a way for people to reach out.",
-      built: [
-        "Landing, About Us, Testimonials, Gallery, and Contact pages with team bios and photo galleries",
-        "Contact form that emails the ministry through a serverless API",
-        "GitHub Actions pipeline that checks pull requests and deploys on merge to main",
+      problem: "A small prison ministry needed a credible place online to tell its story and let people reach out or give, without anyone there managing servers.",
+      useCase: "A visitor reads about the team and testimonies, browses photos, donates, or sends a message that lands in the ministry's inbox.",
+      approach: [
+        "Pages for the team, testimonies, gallery, and contact",
+        "A contact form that emails the ministry through a serverless function",
+        "A pipeline that checks pull requests and deploys on merge",
       ],
-      architecture: "React site deployed as a static site on AWS, with the contact form posting to API Gateway and a Lambda that sends mail through SES. Alex built the original site and pipeline in 2022. A collaborator later moved it to SST v3 and added rate limiting, input validation, and Cloudflare Turnstile anti-spam.",
+      status: { state: "live", note: "Live at riseupprisonministry.com. A collaborator has since moved it to SST v3 and added anti-spam protection." },
     },
   },
   {
@@ -158,13 +168,14 @@ export const projects: Project[] = [
     visibility: "private",
     images: [],
     caseStudy: {
-      problem: "A Denver towing company serving English and Spanish speakers needed a site that works for both.",
-      built: [
-        "Bilingual home page with a language toggle, backed by a translation map for every piece of copy",
-        "Service sections for towing, junk car buying, and roadside help, plus an FAQ accordion",
-        "Click-to-call header, Google Maps embed, and a contact form",
+      problem: "A Denver towing company with many Spanish-speaking customers needed people to find it and call fast, in either language.",
+      useCase: "A stranded driver lands on the site, switches to Spanish if they want, sees the services, and taps to call.",
+      approach: [
+        "Every piece of copy in English and Spanish behind one toggle",
+        "Service sections for towing, junk car buying, and roadside help, plus an FAQ",
+        "Click-to-call, a map, and a contact form",
       ],
-      architecture: "React and TypeScript with Material UI, deployed as a static site on AWS with SST.",
+      status: { state: "archived", note: "Built in 2023 under Wenntech." },
     },
   },
   {
@@ -178,13 +189,15 @@ export const projects: Project[] = [
     visibility: "private",
     images: [],
     caseStudy: {
-      problem: "A home for building products and sites for clients, end to end on AWS.",
-      built: [
-        "FitGoAI, an AI fitness and nutrition app, and client sites for RiseUp and Active Towing",
-        "The wenntech.cloud site: full-screen sections, a vector wave, a full-screen menu overlay, and the black and acid-lime look this portfolio grew out of",
-        "Teaching repos on building Python packages and infrastructure as code with SST",
+      problem: "Small businesses and early products need real apps and sites built and run on AWS, without hiring a full team.",
+      useCase: "A client brings an idea, and Wenntech designs, builds, and deploys it on AWS, from marketing sites to AI-backed mobile apps.",
+      approach: [
+        "FitGoAI, plus client sites for RiseUp and Active Towing",
+        "Every project ships on AWS with SST, with React or React Native on the front",
+        "GitHub Actions deploys through keyless AWS sign-in",
+        "Teaching repos on Python packaging and infrastructure as code",
       ],
-      architecture: "Every project ships on AWS with SST from one repo, with React or React Native up front, and GitHub Actions deploying through keyless AWS sign-in (OIDC).",
+      status: { state: "active", note: "Alex's studio since 2022." },
     },
   },
 ];

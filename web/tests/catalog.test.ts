@@ -1,5 +1,6 @@
 import { ProjectCatalog } from "../src/content/ProjectCatalog";
 import { projects } from "../src/content/projects";
+import { STATUS_STATES } from "../src/content/types";
 
 describe("ProjectCatalog", () => {
   const catalog = new ProjectCatalog(projects);
@@ -17,8 +18,17 @@ describe("ProjectCatalog", () => {
 
   it("gives every project expanded copy", () => {
     for (const p of projects) {
-      expect(p.caseStudy.built.length, p.slug).toBeGreaterThan(0);
+      expect(p.caseStudy.approach.length, p.slug).toBeGreaterThan(0);
       expect(p.stack.length, p.slug).toBeGreaterThan(0);
+    }
+  });
+
+  it("leads every panel with a problem, use case and valid status", () => {
+    for (const p of projects) {
+      expect(p.caseStudy.problem.trim(), p.slug).not.toBe("");
+      expect(p.caseStudy.useCase.trim(), p.slug).not.toBe("");
+      expect(STATUS_STATES, p.slug).toContain(p.caseStudy.status.state);
+      expect(p.caseStudy.status.note.trim(), p.slug).not.toBe("");
     }
   });
 
