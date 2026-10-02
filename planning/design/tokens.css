@@ -1,0 +1,58 @@
+/* Design D tokens: terminal / typewriter. Drop-in replacement for web/src/styles/theme.css.
+   Keeps Engineer's variable names; adds type, spacing, radius, motion. */
+:root {
+  /* color (all text colors pass WCAG AA on --color-bg #0c0c0b) */
+  --color-page: #050505;
+  --color-bg: #0c0c0b;
+  --color-panel: #121211;
+  --color-row-hover: rgb(188 255 45 / 0.05);
+  --color-row-open: rgb(188 255 45 / 0.08);
+  --color-fg: #dedbd2;      /* 14.1:1 */
+  --color-dim: #8a877f;     /* 5.45:1, comments + metadata */
+  --color-line: #2a2926;    /* borders only, never text */
+  --color-accent: #bcff2d;  /* 16.3:1, prompt, names, cursor, focus */
+  --color-on-accent: #0c0c0b;
+  --color-warn: #ffb86b;    /* 11.5:1, "private" label */
+
+  /* type */
+  --font-type: "Courier Prime", "Courier New", monospace;          /* headlines */
+  --font-mono: "Fira Code", "DM Mono", ui-monospace, monospace;    /* everything else */
+  --fs-hero: clamp(2.4rem, 6vw, 4rem);
+  --fs-h2: clamp(1.8rem, 4vw, 2.5rem);
+  --fs-body: 0.9375rem;   /* 15px */
+  --fs-small: 0.8125rem;  /* 13px, floor for any text */
+  --lh-tight: 1.08;
+  --lh-body: 1.65;
+
+  /* space (4px grid) */
+  --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 24px;
+  --sp-6: 32px; --sp-7: 48px; --sp-8: 64px;
+  --pad-x: clamp(18px, 4vw, 48px);
+  --block-gap: var(--sp-7);
+
+  /* shape */
+  --radius-window: 10px;
+  --radius-box: 6px;
+  --radius-shot: 22px;
+  --border: 1px solid var(--color-line);
+  --border-row: 1px dashed var(--color-line);
+  --focus-ring: 2px solid var(--color-accent);
+
+  /* motion */
+  --type-char-ms: 38ms;     /* hero typing speed */
+  --cursor-blink: 1s steps(1) infinite;
+  --expand-ms: 180ms;
+  --ease: cubic-bezier(.2, .7, .2, 1);
+
+  --maxw: 1180px;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --type-char-ms: 0ms; --expand-ms: 0ms; --cursor-blink: none; }
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--color-page); color: var(--color-fg);
+  font-family: var(--font-mono); font-size: var(--fs-body); line-height: var(--lh-body); }
+a { color: inherit; text-decoration-color: var(--color-accent); text-underline-offset: 4px; }
+:focus-visible { outline: var(--focus-ring); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

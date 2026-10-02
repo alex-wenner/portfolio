@@ -1,0 +1,63 @@
+<!doctype html><html><head><meta name=viewport content="width=device-width,initial-scale=1"><style>
+:root{--bg:#0C0C0B;--panel:#121211;--fg:#DEDBD2;--dim:#8A877F;--line:#2A2926;--acc:#BCFF2D;--warn:#FFB86B;
+--type:'Courier Prime','Courier New',monospace;--mono:'Fira Code','DM Mono',monospace}
+*{box-sizing:border-box}body{margin:0;background:#050505;font-family:var(--mono);color:var(--fg);font-size:15px;line-height:1.65}
+.win{max-width:1180px;margin:28px auto;background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+background-image:repeating-linear-gradient(0deg,#ffffff04 0 1px,transparent 1px 3px)}
+.bar{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--panel);color:var(--dim);font-size:13px}
+.dot{width:11px;height:11px;border-radius:50%;background:#333}.bar span.t{margin:0 auto}
+.body{padding:34px 48px 20px}
+.p{color:var(--dim)}.p b{color:var(--acc);font-weight:500}.cmd{color:var(--fg)}
+.blk{margin:0 0 54px}
+h1{font-family:var(--type);font-weight:400;font-size:64px;line-height:1.08;letter-spacing:-.5px;margin:14px 0 18px}
+h1 .acc{color:var(--acc)}
+.cur{display:inline-block;width:.55em;height:.95em;background:var(--acc);vertical-align:-0.08em;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.cur{animation:none}}
+.c{color:var(--dim)}
+table{border-collapse:collapse;width:100%;margin-top:10px}td{padding:9px 14px 9px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+tr.hl td{background:#BCFF2D0D}tr.hl td:first-child{box-shadow:inset 3px 0 var(--acc)}
+.n{color:var(--acc)}.priv{color:var(--warn);font-size:12px}.pub{color:var(--acc);font-size:12px}
+.readme{display:grid;grid-template-columns:1fr 250px;gap:36px;border:1px solid var(--line);border-radius:6px;padding:26px 30px;margin-top:12px;position:relative}
+.readme:before{content:"── nightscene/README.md ";position:absolute;top:-11px;left:18px;background:var(--bg);padding:0 6px;color:var(--dim);font-size:13px}
+.readme h2{font-family:var(--type);font-weight:400;font-size:40px;margin:0 0 6px}
+.readme ul{padding-left:0;list-style:none;margin:16px 0}.readme li:before{content:"→ ";color:var(--acc)}
+.readme img{width:100%;border-radius:22px;border:1px solid var(--line)}
+.tag{display:inline-block;border:1px solid var(--line);padding:1px 8px;margin:4px 6px 0 0;font-size:12px;color:var(--fg)}
+.tools div{padding:6px 0}.tools a{color:var(--fg);text-decoration:underline;text-decoration-color:var(--acc);text-underline-offset:4px}
+.stack{color:var(--fg)}.stack i{color:var(--dim);font-style:normal}
+.status{display:flex;justify-content:space-between;background:var(--acc);color:#0C0C0B;font-size:13px;padding:4px 14px;font-weight:500}
+.status span.on{background:#0C0C0B;color:var(--acc);padding:0 8px}
+@media (max-width:640px){.body{padding:22px 18px}h1{font-size:38px}.readme{grid-template-columns:1fr;padding:22px 18px}.readme img{width:70%;margin:auto}.hide{display:none}.win{margin:0;border-radius:0}}
+</style></head><body><div class=win>
+<div class=bar><i class=dot></i><i class=dot></i><i class=dot></i><span class=t>alex@wenner: ~/portfolio — zsh</span></div>
+<div class=body>
+<div class=blk><div class=p><b>alex@wenner</b> ~ $ <span class=cmd>whoami</span></div>
+<h1>Alex Wenner.<br>I ship whole products<br><span class=acc>on AWS.</span><span class=cur></span></h1>
+<div class=c># full-stack + AI engineer · react &amp; expo up front · sst, lambda &amp; python behind it</div></div>
+
+<div class=blk><div class=p><b>alex@wenner</b> ~ $ <span class=cmd>ls -l ./products</span></div>
+<table>
+<tr class=hl><td class=n>nightscene/</td><td>Two-app nightlife platform, live crowds &amp; passes</td><td class=hide>expo · sst v3 · websockets</td><td class=priv>private</td></tr>
+<tr><td class=n>fitgoai/</td><td>AI fitness &amp; nutrition app</td><td class=hide>expo · python λ · bedrock</td><td class=priv>private</td></tr>
+<tr><td class=n>works-by-sam-o/</td><td>Creative studio business platform</td><td class=hide>react · vite · cognito</td><td class=priv>private</td></tr>
+</table></div>
+
+<div class=blk><div class=p><b>alex@wenner</b> ~ $ <span class=cmd>cat nightscene/README.md</span></div>
+<div class=readme><div><h2>NightScene</h2><div class=c>consumer app + venue admin app · 2025–2026 · sole architect</div>
+<ul><li>Browse venues with live crowd and wait times over WebSockets</li><li>Paid skip-the-line QR passes and venue deals</li><li>Admin app with staff roles and live operations</li></ul>
+<span class=tag>Expo SDK 54</span><span class=tag>SST v3</span><span class=tag>API Gateway WS</span><span class=tag>DynamoDB</span><span class=tag>Cognito</span>
+<div style=margin-top:22px class=p>[ enter ] read case study &nbsp; [ ↓ ] next project</div></div>
+<img src=ns-consumer-phone.png alt="NightScene app screen"></div></div>
+
+<div class="blk tools"><div class=p><b>alex@wenner</b> ~ $ <span class=cmd>./tools --list</span></div>
+<div><a>promptlens</a> <span class=pub>public</span> <span class=c>  which part of your prompt moved the output</span></div>
+<div><a>proofprint</a> <span class=pub>public</span> <span class=c>  signed ML lineage in a merkle log</span></div>
+<div><a>rennew</a> <span class=pub>public</span> <span class=c>      local-first coding-agent runtime</span></div></div>
+
+<div class=blk><div class=p><b>alex@wenner</b> ~ $ <span class=cmd>cat stack.txt</span></div>
+<div class=stack>sst v3 <i>/</i> lambda <i>/</i> api gateway <i>/</i> dynamodb <i>/</i> cognito <i>/</i> react <i>/</i> expo <i>/</i> typescript <i>/</i> python <i>/</i> rust</div></div>
+<div class=p><b>alex@wenner</b> ~ $ <span class=cur></span></div>
+</div>
+<div class=status><div><span class=on>0:work</span>&nbsp; 1:tools &nbsp; 2:clients &nbsp; 3:about &nbsp; 4:contact</div><div class=hide>stage:nonprod · us-east-1</div></div>
+</div></body></html>
